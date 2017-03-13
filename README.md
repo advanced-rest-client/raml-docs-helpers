@@ -1,3 +1,4 @@
+# raml-docs-parser
 
 # `<raml-docs-parser>`
 The `<raml-docs-parser>` is an element that is intended to use in demo pages as a
