@@ -226,7 +226,7 @@ be fired with the `raml` property on the detail object.
       .then((api) => {
         this.api = api;
         this.produceJSON();
-        this.errors = api.errors();
+        this.errors = api[0].errors();
       })
       .catch((e) => {
         console.warn('API error', e);
