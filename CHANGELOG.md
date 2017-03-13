@@ -1,3 +1,17 @@
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/advanced-rest-client/raml-docs-helpers/compare/1.0.3...v1.0.5) (2017-03-13)
+
+
+### Fix
+
+* Fixed an issue with the properties access in api object ([6df5e9ccc46f5376c908976c715214d59226cf47](https://github.com/advanced-rest-client/raml-docs-helpers/commit/6df5e9ccc46f5376c908976c715214d59226cf47))
+
+### Update
+
+* Added normalize-raml property to rhe raml parser ([a210f4f845f1485192608ce9c258bb16b62232ea](https://github.com/advanced-rest-client/raml-docs-helpers/commit/a210f4f845f1485192608ce9c258bb16b62232ea))
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/advanced-rest-client/raml-docs-helpers/compare/1.0.3...v1.0.4) (2017-03-13)
 
