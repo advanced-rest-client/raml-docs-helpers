@@ -1,3 +1,13 @@
+<a name="1.0.6"></a>
+## [1.0.6](https://github.com/advanced-rest-client/raml-docs-helpers/compare/1.0.5...v1.0.6) (2017-03-31)
+
+
+### Update
+
+* Updated RAML parser to v2.0.0 ([37ec90777dcd27e74a69433969b3358bc920c2f9](https://github.com/advanced-rest-client/raml-docs-helpers/commit/37ec90777dcd27e74a69433969b3358bc920c2f9))
+
+
+
 <a name="1.0.5"></a>
 ## [1.0.5](https://github.com/advanced-rest-client/raml-docs-helpers/compare/1.0.3...v1.0.5) (2017-03-13)
 
