@@ -230,6 +230,9 @@ be fired with the `raml` property on the detail object.
     _enhanced: function(e) {
       this._setRaml(e.detail.json);
       this.working = false;
+      this.fire('raml-ready', {
+        raml: e.detail.json
+      });
     }
 
   });
