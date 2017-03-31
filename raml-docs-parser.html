@@ -13,6 +13,7 @@ the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../raml-js-parser/raml-js-parser.html">
+<link rel="import" href="../raml-json-enhance/raml-json-enhance.html">
 <link rel="import" href="../file-drop/file-drop.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-spinner/paper-spinner.html">
@@ -72,7 +73,9 @@ be fired with the `raml` property on the detail object.
       @apply(--layout-flex);
     }
     </style>
-    <raml-js-parser normalize-raml></raml-js-parser>
+    <raml-js-parser json latest-json="{{plainRaml}}"></raml-js-parser>
+    <raml-json-enhance json="[[plainRaml.specification]]"></raml-json-enhance>
+
     <raml-main-entry-lookup files="[[file]]" on-entry="entryFound"></raml-main-entry-lookup>
     <div class="vertical-section-container centered">
       <h1>Drop RAML file here.</h1>
@@ -127,11 +130,6 @@ be fired with the `raml` property on the detail object.
         type: Boolean,
         value: false
       },
-      // Will set to true when parser has data
-      hasData: {
-        type: Boolean,
-        value: false
-      },
       // Reference to the API object produced by the parser
       api: Object,
       // List of errors found by parser.
@@ -149,11 +147,15 @@ be fired with the `raml` property on the detail object.
         type: Object,
         notify: true,
         readOnly: true
-      }
+      },
+      plainRaml: Object
+    },
+
+    listeners: {
+      'raml-json-enhance-ready': '_enhanced'
     },
 
     fileListChanged: function() {
-      this.hasData = false;
       this.noEntryPoint = false;
       this.multipleEntryPoints = false;
       this.entryPoints = [];
@@ -183,27 +185,12 @@ be fired with the `raml` property on the detail object.
 
     parseRaml: function(item) {
       this.working = true;
-
-      let detail = {
+      var detail = {
         'file': item.entry,
         'files': this.file
       };
-      let event = this.fire('parse-raml-file', detail);
-      if (!event.detail.raml) {
-        console.error('Event did not contained raml property.');
-        return;
-      }
-
-      event.detail.raml
-      .then((api) => {
-        this.api = api;
-        this.errors = api[0].errors();
-        this.produceJSON();
-      })
-      .catch((e) => {
-        console.warn('API error', e);
-        this.working = false;
-      });
+      var event = this.fire('parse-raml-file', detail);
+      this._handleRamlParserEvent(event);
     },
 
     _downloadRaml: function() {
@@ -213,37 +200,34 @@ be fired with the `raml` property on the detail object.
       }
       this.working = true;
 
-      let detail = {
+      var detail = {
         'url': url
       };
-      let event = this.fire('parse-raml-url', detail);
+      var event = this.fire('parse-raml-url', detail);
+      this._handleRamlParserEvent(event);
+    },
+
+    _handleRamlParserEvent: function(event) {
       if (!event.detail.raml) {
         console.error('Event did not contained raml property.');
+        this.working = false;
         return;
       }
-
+      var context = this;
       event.detail.raml
-      .then((api) => {
-        this.api = api;
-        this.produceJSON();
-        this.errors = api[0].errors();
+      .then(function(data) {
+        context.errors = data.json.errors;
       })
-      .catch((e) => {
+      .catch(function(e) {
         console.warn('API error', e);
-        this.working = false;
+        context.working = false;
       });
     },
 
-    produceJSON: function() {
-      if (!this.api) {
-        return;
-      }
-
-      this._setRaml(this.api[1].specification);
-      this.fire('raml-ready', {
-        raml: this.raml
-      });
-      this.working = false;
+    // Called when raml has been enhanced.
+    _enhanced: function(e) {
+      this._setRaml(e.detail.json);
+      this._setWorking(false);
     }
 
   });
