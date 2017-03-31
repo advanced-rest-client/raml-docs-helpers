@@ -184,6 +184,7 @@ be fired with the `raml` property on the detail object.
     },
 
     parseRaml: function(item) {
+      this._setRaml(undefined);
       this.working = true;
       var detail = {
         'file': item.entry,
@@ -194,6 +195,7 @@ be fired with the `raml` property on the detail object.
     },
 
     _downloadRaml: function() {
+      this._setRaml(undefined);
       var url = this.ramlFileUrl;
       if (!url) {
         return;
@@ -227,7 +229,7 @@ be fired with the `raml` property on the detail object.
     // Called when raml has been enhanced.
     _enhanced: function(e) {
       this._setRaml(e.detail.json);
-      this._setWorking(false);
+      this.working = false;
     }
 
   });
