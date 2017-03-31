@@ -1,3 +1,17 @@
+<a name="1.0.8"></a>
+## [1.0.8](https://github.com/advanced-rest-client/raml-docs-helpers/compare/1.0.6...v1.0.8) (2017-03-31)
+
+
+### Fix
+
+* Fixed an issue with setting a not read only property with the this._set method ([4695efdd4d5457ae54db9d6aba87ca620b9b0fd0](https://github.com/advanced-rest-client/raml-docs-helpers/commit/4695efdd4d5457ae54db9d6aba87ca620b9b0fd0))
+
+### Update
+
+* added back raml ready event ([12128b5dfbfba75f29bb7868d80ee68bcaea9e3c](https://github.com/advanced-rest-client/raml-docs-helpers/commit/12128b5dfbfba75f29bb7868d80ee68bcaea9e3c))
+
+
+
 <a name="1.0.7"></a>
 ## [1.0.7](https://github.com/advanced-rest-client/raml-docs-helpers/compare/1.0.6...v1.0.7) (2017-03-31)
 
