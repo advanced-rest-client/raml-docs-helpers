@@ -187,7 +187,7 @@ be fired with the `raml` property on the detail object.
       this._setRaml(undefined);
       this.working = true;
       var detail = {
-        'file': item.entry,
+        'file': item.entry || item,
         'files': this.file
       };
       var event = this.fire('parse-raml-file', detail);
