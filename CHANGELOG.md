@@ -1,3 +1,14 @@
+<a name="1.0.10"></a>
+## [1.0.10](https://github.com/advanced-rest-client/raml-docs-helpers/compare/1.0.9...v1.0.10) (2017-06-01)
+
+
+### Update
+
+* Added support for ZIP files ([ddee813dcbfb74a5d8581ba27ac8c0d9d65b5d8a](https://github.com/advanced-rest-client/raml-docs-helpers/commit/ddee813dcbfb74a5d8581ba27ac8c0d9d65b5d8a))
+* Updated event fired for the parser structure ([33b6be3b6618a742e1630e03446337bc22535a80](https://github.com/advanced-rest-client/raml-docs-helpers/commit/33b6be3b6618a742e1630e03446337bc22535a80))
+
+
+
 <a name="1.0.9"></a>
 ## [1.0.9](https://github.com/advanced-rest-client/raml-docs-helpers/compare/1.0.8...v1.0.9) (2017-06-01)
 
