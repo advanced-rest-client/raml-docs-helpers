@@ -22,6 +22,8 @@ the License.
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../raml-main-entry-lookup/raml-main-entry-lookup.html">
 <link rel="import" href="../iron-demo-helpers/demo-pages-shared-styles.html">
+<link rel="import" href="../web-unzip/web-unzip.html">
+
 <!--
 # `<raml-docs-parser>`
 The `<raml-docs-parser>` is an element that is intended to use in demo pages as a
@@ -75,8 +77,8 @@ be fired with the `raml` property on the detail object.
     </style>
     <raml-js-parser json latest-json="{{plainRaml}}"></raml-js-parser>
     <raml-json-enhance json="[[plainRaml.specification]]"></raml-json-enhance>
-
-    <raml-main-entry-lookup files="[[file]]" on-entry="entryFound"></raml-main-entry-lookup>
+    <web-unzip id="unzip" on-web-unzip-read="fileUnzipped" auto-read flat-structure></web-unzip>
+    <raml-main-entry-lookup id="lookup" on-entry="entryFound"></raml-main-entry-lookup>
     <div class="vertical-section-container centered">
       <h1>Drop RAML file here.</h1>
       <file-drop multiple file="{{file}}" on-file-accepted="fileListChanged"></file-drop>
@@ -155,11 +157,18 @@ be fired with the `raml` property on the detail object.
       'raml-json-enhance-ready': '_enhanced'
     },
 
-    fileListChanged: function() {
+    fileListChanged: function(e) {
       this.noEntryPoint = false;
       this.multipleEntryPoints = false;
       this.entryPoints = [];
       this.api = undefined;
+
+      var file = e.detail.file;
+      if (file.length === 1 && file[0].type && file[0].type.indexOf('zip') !== -1) {
+        this.$.unzip.file = file;
+      } else {
+        this.$.lookup.files = file;
+      }
     },
 
     entryFound: function(e) {
@@ -169,11 +178,22 @@ be fired with the `raml` property on the detail object.
         return;
       }
       if (file instanceof Array) {
-        this.multipleEntryPoints = true;
-        this.entryPoints = file;
-      } else {
-        this.parseRaml(file);
+        var exit = true;
+        // just try to find common file name
+        for (let i = 0, len = file.length; i < len; i += 1) {
+          if (file[i].name === 'api.raml') {
+            file = file[i];
+            exit = false;
+            break;
+          }
+        }
+        if (exit) {
+          this.multipleEntryPoints = true;
+          this.entryPoints = file;
+          return;
+        }
       }
+      this.parseRaml(file);
     },
 
     _useEntryPoint: function(e) {
@@ -233,6 +253,11 @@ be fired with the `raml` property on the detail object.
       this.fire('raml-ready', {
         raml: e.detail.json
       });
+    },
+
+    fileUnzipped: function(e) {
+      this.$$('raml-js-parser').files = e.detail.fileStructure;
+      this.$.lookup.files = e.detail.fileStructure;
     }
 
   });
