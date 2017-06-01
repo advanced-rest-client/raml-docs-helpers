@@ -1,3 +1,13 @@
+<a name="1.0.9"></a>
+## [1.0.9](https://github.com/advanced-rest-client/raml-docs-helpers/compare/1.0.8...v1.0.9) (2017-06-01)
+
+
+### Fix
+
+* Fixed file processing ([98678f45b76056736e64409b41a9a75816a64ac0](https://github.com/advanced-rest-client/raml-docs-helpers/commit/98678f45b76056736e64409b41a9a75816a64ac0))
+
+
+
 <a name="1.0.8"></a>
 ## [1.0.8](https://github.com/advanced-rest-client/raml-docs-helpers/compare/1.0.6...v1.0.8) (2017-03-31)
 
